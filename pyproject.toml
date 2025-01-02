@@ -1,0 +1,53 @@
+[project]
+name = "lucy"
+version = "0.1.0"
+description = "personalised ai-powered onboarding buddy"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=0.6.0",
+    "langchain>=0.3.13",
+    "langchain-community>=0.3.13",
+    "langchain-core>=0.3.28",
+    "langchain-openai>=0.2.14",
+    "langchain-text-splitters>=0.3.4",
+    "python-dotenv>=1.0.1",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.8.4"]
+
+[tool.ruff]
+# Set the maximum line length to 120.
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 20
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
+quote-style = "double"
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
+# overlap with the use of a formatter, like Black, but we can override this behavior by
+# explicitly adding the rule.
+extend-select = ["E501"]
+
+fixable = ["ALL"]
+
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
