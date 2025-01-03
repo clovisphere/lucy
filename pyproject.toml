@@ -5,12 +5,16 @@ description = "personalised ai-powered onboarding buddy"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "art>=6.4",
     "chromadb>=0.6.0",
+    "click>=8.1.8",
+    "faiss-cpu>=1.9.0.post1",
     "langchain>=0.3.13",
     "langchain-community>=0.3.13",
     "langchain-core>=0.3.28",
     "langchain-openai>=0.2.14",
     "langchain-text-splitters>=0.3.4",
+    "pypdf>=5.1.0",
     "python-dotenv>=1.0.1",
 ]
 
@@ -18,8 +22,8 @@ dependencies = [
 dev = ["ruff>=0.8.4"]
 
 [tool.ruff]
-# Set the maximum line length to 120.
-line-length = 120
+# Set the maximum line length to 90.
+line-length = 90
 
 [tool.ruff.format]
 docstring-code-format = true
