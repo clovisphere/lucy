@@ -1,5 +1,4 @@
 import os
-import uuid
 
 from langchain.schema import Document
 from langchain.text_splitter import CharacterTextSplitter
@@ -10,7 +9,6 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 
 class Rag:
     def __init__(self, path: str) -> None:
-        self.collection_name = f"collection_{uuid.uuid4()}"  # unique collection name
         self.directory_path = path  # path to the directory containing the text files
         self.store_path = os.getenv("VECTOR_STORE_PATH") or "./vector_store"
 
@@ -21,28 +19,33 @@ class Rag:
         )
 
     def etl(self) -> None:
-        store: FAISS = FAISS.from_documents(
-            documents=self._get_documents(),
-            embedding=self.embedding,
-        )
-        store.save_local(self.store_path)
+        try:
+            store: FAISS = FAISS.from_documents(
+                documents=self._get_documents(), embedding=self.embedding
+            )
+            store.save_local(self.store_path)
+        except Exception as e:
+            print(f"> An exception occurred [ETL] - {e}")
 
-    def retrieve_store(self) -> FAISS:
+    def get_store(self) -> FAISS:
         return FAISS.load_local(
             folder_path=self.store_path,
             embeddings=self.embedding,
-            allow_dangerous_deserialization=True
+            allow_dangerous_deserialization=True,
         )
 
     def _get_documents(
-        self, chunk_size: int = 1000, chunk_overlap: int = 0, separator: str = "\n"
+        self, chunk_size: int = 890, chunk_overlap: int = 35
     ) -> list[Document]:
         docs: list[Document] = []
         for file in os.listdir(self.directory_path):
-            docs.extend(PyPDFLoader(f"{self.directory_path}/{file}").load())
+            try:
+                docs.extend(PyPDFLoader(f"{self.directory_path}/{file}").load())
+            except Exception as e:
+                print(f"> An exception occurred [PDF] - {e}")
         # Split the documents into chunks
         text_splitter = CharacterTextSplitter(
-            chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator=separator
+            chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator="\n"
         )
         return text_splitter.split_documents(docs)
 
