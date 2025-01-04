@@ -1,8 +1,11 @@
 import click
 from art import tprint  # type: ignore
+from dotenv import load_dotenv
 
 from lib.llm import OpenAILlm
 from lib.rag import Rag
+
+load_dotenv()  # load the environment variables
 
 
 @click.command()
