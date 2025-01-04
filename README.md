@@ -2,6 +2,7 @@
 
 Lucy is an AI assistant designed to help you find answers by querying a pre-built index of documents, such as your company's knowledge base.
 She’s perfect for onboarding new employees, answering FAQs, or even planning a party!
+
 Lucy primarily works through a CLI but can also integrate with platforms like Telegram, WhatsApp, and more.
 
 > **Note**: This project is in its early stages, so expect continuous updates and improvements. 😅
