@@ -40,8 +40,8 @@ class OpenAILlm(Llm):
                 response["answer"],
             ]
         )
-        # TODO: we should also return response["metadata"] to quote/cite sources
-        return self._sanitize_response(response["answer"])
+        # Sanitize the response
+        return self._sanitize_response(response["answer"], ["\nLucy: ", "System: "])
 
     @property
     def retriever_with_history(self) -> Any:
@@ -69,7 +69,7 @@ class OpenAILlm(Llm):
 
         The tone I'd like you to use is friendly, casual, enthusiastic, and a bit playful.
 
-        Use the following pieces of context to answer the question
+        Use the following pieces of context to answer the question:
 
         {context}
 
@@ -89,9 +89,10 @@ class OpenAILlm(Llm):
     def retriever(self) -> VectorStoreRetriever:
         return self.store.as_retriever(search_type="similarity", search_kwargs={"k": 6})
 
-    def _sanitize_response(self, response: str, prefix: str = "\nLucy: ") -> str:
+    def _sanitize_response(self, response: str, prefixes: list[str]) -> str:
         """Removes everything before and including the first occurrence of the prefix."""
-        idx = response.find(prefix)
-        if idx != -1:
-            return response[idx + len(prefix) :].strip()
+        for prefix in prefixes:
+            idx = response.find(prefix)
+            if idx != -1:
+                return response[idx + len(prefix) :].strip()
         return response
