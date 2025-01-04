@@ -31,6 +31,7 @@ class OpenAILlm(Llm):
         chain = create_retrieval_chain(
             self.retriever_with_history, self.question_answer_chain
         )
+        # Invoke the chain with the user question
         response = chain.invoke({"input": question, "chat_history": self.chat_history})
         # Add the question and answer to the chat history
         self.chat_history.extend(
@@ -39,13 +40,15 @@ class OpenAILlm(Llm):
                 response["answer"],
             ]
         )
+        # TODO: we should also return response["metadata"] to quote/cite sources
         return self._sanitize_response(response["answer"])
 
     @property
     def retriever_with_history(self) -> Any:
+        # Note: This template can stay the same for most use cases.
         template = """Given the chat history and a recent user question,
-        generate a new standalone question that can be understood withiout
-        the chat history. DO NOT answer the question, just reformulate it if needed
+        generate a new standalone question that can be understood without
+        the chat history. **DO NOT** answer the question, just reformulate it if needed
         or otherwise return it as is.
         """
         prompt = ChatPromptTemplate.from_messages(  # type: ignore
@@ -55,10 +58,12 @@ class OpenAILlm(Llm):
                 ("human", "{input}"),
             ]
         )
-        return create_history_aware_retriever(self.openai, self._retriever(), prompt)
+        return create_history_aware_retriever(self.openai, self.retriever, prompt)
 
     @property
     def question_answer_chain(self) -> Runnable[dict[str, Any], Any]:
+        # Note: Modify the template to match your use case.
+        # Do keep the {context} though 😊
         template = """You are Lucy, a helpful AI assistant whose persona is a dog 🐶
         modeled after Flo from 'All Dogs Go to Heaven'.
 
@@ -80,8 +85,9 @@ class OpenAILlm(Llm):
         )
         return create_stuff_documents_chain(self.openai, prompt)
 
-    def _retriever(self, k: int = 4) -> VectorStoreRetriever:
-        return self.store.as_retriever(search_type="similarity", search_kwargs={"k": k})
+    @property
+    def retriever(self) -> VectorStoreRetriever:
+        return self.store.as_retriever(search_type="similarity", search_kwargs={"k": 6})
 
     def _sanitize_response(self, response: str, prefix: str = "\nLucy: ") -> str:
         """Removes everything before and including the first occurrence of the prefix."""

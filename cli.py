@@ -7,7 +7,9 @@ from core.rag import Rag
 
 @click.command()
 @click.option(
-    "--path", default="./docs", help="Path to the directory containing the documents."
+    "--path",
+    default="./docs",
+    help="Path to the directory containing the documents to index.",
 )
 @click.option(
     "--command",
@@ -21,26 +23,27 @@ def console(path: str, command: str) -> None:
 
     rag: Rag = Rag(path)
     if command == "index":
-        indexing(rag)
+        index_files(rag)
     else:
         click.echo("Starting the REPL...")
-        start_repl(OpenAILlm(rag.get_store()))
+        start_repl(OpenAILlm(rag.get_vector_store()))
     # Is this what you call self promotion? 😂
     click.secho(
-        "\nCrafted with ❤️ by " "©️ clovisphere (https://github.com/clovisphere)",
+        "\nCrafted with ❤️ by ©️ clovisphere (https://github.com/clovisphere)",
         fg="bright_black",
     )
 
 
-def indexing(rag: Rag):
+def index_files(rag: Rag) -> None:
     click.secho("Indexing the documents...", fg="blue")
+    # TODO: Add progress bar here to show the progress of the indexing
     rag.etl()
     click.secho("Indexing complete! 🎉", fg="green")
 
 
 def start_repl(openai: OpenAILlm) -> None:
     click.secho(
-        "\nI'm Lucy 🐶, a helpful AI assistant. " "You can ask me anything.", fg="blue"
+        "\nI'm Lucy 🐶, a helpful AI assistant. You can ask me anything.", fg="blue"
     )
     click.secho("Type 'exit', 'quit', or 'q' to leave the REPL.\n", fg="red")
 
@@ -54,5 +57,6 @@ def start_repl(openai: OpenAILlm) -> None:
     )
 
 
+# This is the entry point of the CLI
 if __name__ == "__main__":
     console()
