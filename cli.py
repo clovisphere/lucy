@@ -51,10 +51,11 @@ def start_repl(openai: OpenAILlm) -> None:
     click.secho("Type 'exit', 'quit', or 'q' to leave the REPL.\n", fg="red")
 
     while True and ((prompt := input("You: ")) not in ["exit", "quit", "q"]):
-        response = openai.ask_question(prompt)
-        click.secho(f"> {response.strip()}", fg="bright_cyan")
+        ai_answer = openai.ask_question(prompt)
+        click.secho(f"> {ai_answer.strip()}", fg="bright_cyan")
+    # Leaving us already? 😪
     click.secho(
-        "\nOh noooo! 🐾 You're leaving already? 🥺 I'll be here, tail wagging, "
+        "\nOh noooo! 🐾 You're leaving already? 😪🥺 I'll be here, tail wagging, "
         "howling for your return.. woof, woof 🐕",
         fg="red",
     )
