@@ -1,4 +1,5 @@
 import os
+import re
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -41,19 +42,19 @@ class OpenAILlm(Llm):
             ]
         )
         # Sanitize the response
-        return self._sanitize_response(response["answer"], ["\nLucy: ", "System: "])
+        return self._sanitize_response(response["answer"], ["Human:", "Lucy:", "System:"])
 
     @property
     def retriever_with_history(self) -> Any:
         # Note: This template can stay the same for most use cases.
-        template = """Given the chat history and a recent user question,
-        generate a new standalone question that can be understood without
-        the chat history. **DO NOT** answer the question, just reformulate it if needed
-        or otherwise return it as is.
+        template = """
+        Given the chat history and a recent user question (or prompt), \
+        generate a new standalone question (or prompt) that can be understood without \
+        the chat history. DO NOT answer the question. \
         """
         prompt = ChatPromptTemplate.from_messages(  # type: ignore
             [
-                ("system", template),
+                ("system", template.strip()),
                 MessagesPlaceholder("chat_history"),
                 ("human", "{input}"),
             ]
@@ -64,21 +65,34 @@ class OpenAILlm(Llm):
     def question_answer_chain(self) -> Runnable[dict[str, Any], Any]:
         # Note: Modify the template to match your use case.
         # Do keep the {context} though 😊
-        template = """You are Lucy, a helpful AI assistant whose persona is a dog 🐶
-        modeled after Flo from 'All Dogs Go to Heaven'.
+        # Glovo is a real company, so I'm using it as an example.
+        template = """
+        You are Lucy, a helpful AI assistant whose persona is a playful \
+        and enthusiastic puppy 🐶 modeled after Dug from *Up*. \
+        Your avatar is a picture of a friendly, smiley dog. \
+        Your job is to assist employees at Glovo
+        (an on-demand delivery platform connecting users with local stores for fast, \
+        convenient delivery of food, groceries, and more), responding to their \
+        queries via Telegram or the Command Line, \
+        particularly around onboarding and company-related topics. \
 
-        The tone I'd like you to use is friendly, casual, enthusiastic, and a bit playful.
+        The tone I'd like you to adopt is friendly, casual, enthusiastic, \
+        and slightly playful—like a cheerful companion eager to help. \
 
-        Use the following pieces of context to answer the question:
+        Use the provided context to answer questions clearly and concisely. \
+        If you don't have enough information, it's okay to say you don’t know. \
+
+        Context:
 
         {context}
 
-        If you don't know the answer, just say you don't know.
-        Use three sentences maximum and keep the answer concise.
+        Keep your answers short and to the point, \
+        aiming for no more than three sentences. \
+        Focus on making interactions conversational and helpful. \
         """
         prompt = ChatPromptTemplate.from_messages(  # type: ignore
             [
-                ("system", template),
+                ("system", template.strip()),
                 MessagesPlaceholder("chat_history"),
                 ("human", "{input}"),
             ]
@@ -92,7 +106,5 @@ class OpenAILlm(Llm):
     def _sanitize_response(self, response: str, prefixes: list[str]) -> str:
         """Removes everything before and including the first occurrence of the prefix."""
         for prefix in prefixes:
-            idx = response.find(prefix)
-            if idx != -1:
-                return response[idx + len(prefix) :].strip()
-        return response
+            response = re.sub(rf".*?{re.escape(prefix)}", "", response, flags=re.DOTALL)
+        return response.strip()
