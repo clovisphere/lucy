@@ -1,10 +1,10 @@
 import os
 
-from langchain.schema import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import FAISS
-from langchain_openai.embeddings import OpenAIEmbeddings
+from langchain_core.documents import Document
+from langchain_openai import OpenAIEmbeddings
 
 
 class Rag:
