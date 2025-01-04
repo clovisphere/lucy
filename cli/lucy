@@ -1,8 +1,10 @@
+#/usr/bin/env python3
+
 import click
 from art import tprint  # type: ignore
 
-from core.llm import OpenAILlm
-from core.rag import Rag
+from lib.llm import OpenAILlm
+from lib.rag import Rag
 
 
 @click.command()
