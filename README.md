@@ -58,7 +58,7 @@ Options:
 Clovis Mugaruka :-)
 
 - [BlueSky](https://bsky.app/profile/clovisphere.github.io)
-- [Github](https://github.com/clovisphere)
+- [GitHub](https://github.com/clovisphere)
 
 
 ## Acknowledgements
