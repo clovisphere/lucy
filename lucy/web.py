@@ -2,6 +2,7 @@ import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
+from starlette.status import HTTP_200_OK
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
@@ -24,7 +25,7 @@ telegram = (
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    await telegram.bot.setWebhook("<your-webhook-url>")
+    await telegram.bot.setWebhook(os.getenv("WEBHOOK_ENDPOINT", ""))
     async with telegram:
         await telegram.start()
         yield
@@ -35,9 +36,9 @@ async def lifespan(_: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-@app.get("/")
+@app.get("/", status_code=HTTP_200_OK)
 async def index():
-    pass
+    return "hello, world!"
 
 
 @app.post("/upload")
@@ -45,9 +46,10 @@ async def upload():
     pass
 
 
-@app.post("/bot", status_code=status.HTTP_200_OK)
+@app.post("/webhook", status_code=status.HTTP_200_OK)
 async def process_update(request: Request):
     req = await request.json()
+    print(f"> received: {req}")
     update = Update.de_json(req, telegram.bot)
     await telegram.process_update(update=update)
     return {"message": "telegram request well received 🤭"}

@@ -27,10 +27,11 @@ async def help(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def start(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
+    greetings = f"Hey {update.message.chat.first_name}" if update.message else "Hey"
     # fmt: off
     if (reply:= update.message.reply_text if update.message else None):
     # fmt: on
         await reply(
-            "Hey, I'm Lucy 🐶, a helpful AI assistant. You can ask me anything or "
-            + "you can send /help to get a list of all the pre-defined commands"
+            f"{greetings},\n\nI'm Lucy 🐶, a helpful AI assistant. You can ask me anything or "
+            + "you can send /help to get a list of all my pre-defined commands."
         )

@@ -26,14 +26,16 @@ Nice to have 😊
 
 ## Requirements
 
-- Python 3.13
-- OpenAI API key
+- [Python 3.13](https://www.python.org/downloads/)
+- [uv](https://docs.astral.sh/uv/)
+- [OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key)
+- [Telegram Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
 - Patience and a lot of coffee ☕️... (that's optional, though 😅)
 
 ## Usage
 
-Before you can use the CLI, you need to set up the environment variables,
-so make a copy of [.env.local](./.env.local) and rename it to `.env`. Fill in the necessary values.
+We need to set up the environment variables, so make a copy of [.env.local](./.env.local)
+and rename it to `.env`. Fill in the necessary values.
 
 ### CLI
 
@@ -57,6 +59,30 @@ Options:
 $ uv run cli.py --path='./docs' --command='index'  # index all documents found in ./docs
 $ uv run cli.py --command='repl'                   # start repl (query your document with the help of Lucy 🐶)
 ```
+
+### WEB (A Very Basic Fast API Application)
+
+#### Development 👷🏽
+
+We can use [ngrok](https://ngrok.com/) to interface with Telegram while running the application locally.
+
+Follow these steps:
+
+> Start ngrok
+
+```console
+ngrok http 8000
+```
+
+Once ngrok is running, you'll receive a public URL (e.g., https://your-ngrok-url.ngrok.io).
+Use this URL to configure your Telegram bot's webhook.
+
+> Start the web app
+
+```console
+uv run fastapi dev lucy/web.py                   # by default, fastapi serves the application on port :8000
+```
+
 
 ## Author
 
