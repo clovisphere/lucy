@@ -29,7 +29,7 @@ Nice to have 😊
 - [Python 3.13](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/)
 - [OpenAI API key](https://help.openai.com/en/articles/4936850-where-do-i-find-my-openai-api-key)
-- [Telegram Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
+- [Telegram Bot Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
 - Patience and a lot of coffee ☕️... (that's optional, though 😅)
 
 ## Usage
