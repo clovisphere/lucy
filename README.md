@@ -1,7 +1,4 @@
-# Ask Lucy 🐶
-
-![A smiley Lucy](./images/Lucy.png)
-
+![Ask Lucy](./images/Lucy_500x500px.png)
 
 Lucy is an AI assistant designed to help you find answers by querying a pre-built index of documents, such as your company's knowledge base.
 She’s perfect for onboarding new employees, answering FAQs, or even planning a party!
