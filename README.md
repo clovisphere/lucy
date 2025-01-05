@@ -1,5 +1,8 @@
 # Ask Lucy 🐶
 
+![A smiley Lucy](./images/lucy.png)
+
+
 Lucy is an AI assistant designed to help you find answers by querying a pre-built index of documents, such as your company's knowledge base.
 She’s perfect for onboarding new employees, answering FAQs, or even planning a party!
 
@@ -37,8 +40,6 @@ so make a copy of [.env.local](./.env.local) and rename it to `.env`. Fill in th
 
 ### CLI
 
-#### Development 👷🏽
-
 ```
 Usage: cli.py [OPTIONS]
 
@@ -49,9 +50,16 @@ Options:
 
                           index: Generate the index for the AI assistant.
                           repl:  Ask the AI assistant question via a REPL.
+
   --help                  Show this message and exit.
 ```
 
+#### Development 👷🏽
+
+```console
+$ uv run cli.py --path='./docs' --command='index'  # index all documents found in ./docs
+$ uv run cli.py --command='repl'                   # start repl (query your document with the help of Lucy 🐶)
+```
 
 ## Author
 
