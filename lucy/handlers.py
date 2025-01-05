@@ -32,6 +32,7 @@ async def start(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
     if (reply:= update.message.reply_text if update.message else None):
     # fmt: on
         await reply(
-            f"{greetings},\n\nI'm Lucy 🐶, a helpful AI assistant. You can ask me anything or "
-            + "you can send /help to get a list of all my pre-defined commands."
+            f"{greetings},\n\nI'm Lucy 🐶, a helpful AI assistant. "
+            + "You can ask me anything or you can send /help to get a "
+            + "list of all my pre-defined commands."
         )
