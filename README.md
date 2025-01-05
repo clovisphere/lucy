@@ -60,7 +60,7 @@ $ uv run cli.py --path='./docs' --command='index'  # index all documents found i
 $ uv run cli.py --command='repl'                   # start repl (query your document with the help of Lucy 🐶)
 ```
 
-### WEB (A Very Basic Fast API Application)
+### Web
 
 #### Development 👷🏽
 
@@ -71,7 +71,7 @@ Follow these steps:
 > Start ngrok
 
 ```console
-ngrok http 8000
+$ ngrok http 8000
 ```
 
 Once ngrok is running, you'll receive a public URL (e.g., https://your-ngrok-url.ngrok.io).
@@ -80,7 +80,7 @@ Use this URL to configure your Telegram bot's webhook.
 > Start the web app
 
 ```console
-uv run fastapi dev lucy/web.py                   # by default, fastapi serves the application on port :8000
+$ uv run fastapi dev lucy/web.py                  # by default, fastapi serves the application on port :8000
 ```
 
 
