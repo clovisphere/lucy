@@ -13,7 +13,7 @@ docs/
 .env
 
 # Vector files
-vector_store/
+.vector_store/
 
 # Virtual environments
 .venv
