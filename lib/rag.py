@@ -10,7 +10,7 @@ from langchain_openai import OpenAIEmbeddings
 class Rag:
     def __init__(self, path: str) -> None:
         self.directory_path = path  # path to the directory containing the text files
-        self.store_path = os.getenv("VECTOR_STORE_PATH") or "./vector_store"
+        self.store_path = os.getenv("VECTOR_STORE_PATH") or "./.store"
 
     @property
     def embedding(self) -> OpenAIEmbeddings:
