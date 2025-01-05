@@ -1,5 +1,5 @@
-from contextlib import asynccontextmanager
 import os
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from telegram import Update
@@ -11,7 +11,6 @@ from telegram.ext import (
 )
 
 from lucy.handlers import ask, help, start
-
 
 # Initialize Telegram 🤖
 telegram = (
