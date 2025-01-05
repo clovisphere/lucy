@@ -2,8 +2,8 @@ import click
 from art import tprint  # type: ignore
 from dotenv import load_dotenv
 
-from lib.llm import OpenAILlm
-from lib.rag import Rag
+from app.helpers.llm import OpenAILlm
+from app.helpers.rag import Rag
 
 load_dotenv()  # load the environment variables
 

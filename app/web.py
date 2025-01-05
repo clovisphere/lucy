@@ -11,7 +11,8 @@ from telegram.ext import (
     filters,
 )
 
-from lucy.handlers import ask, help, start
+from app.config import settings
+from app.handlers import ask, help, start
 
 # Initialize Telegram 🤖
 telegram = (
@@ -33,7 +34,7 @@ async def lifespan(_: FastAPI):
 
 
 # Initialize FastAPI app :-)
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
 
 
 @app.get("/", status_code=HTTP_200_OK)
@@ -49,7 +50,6 @@ async def upload():
 @app.post("/webhook", status_code=status.HTTP_200_OK)
 async def process_update(request: Request):
     req = await request.json()
-    print(f"> received: {req}")
     update = Update.de_json(req, telegram.bot)
     await telegram.process_update(update=update)
     return {"message": "telegram request well received 🤭"}

@@ -1,9 +1,9 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from lib.llm import OpenAILlm
-from lib.rag import Rag
-from lucy.config import settings
+from app.config import settings
+from app.helpers.llm import OpenAILlm
+from app.helpers.rag import Rag
 
 
 async def ask(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
