@@ -24,12 +24,11 @@ load_dotenv()  # load the environment variables
 def console(path: str, command: str) -> None:
     click.echo(tprint("Lucy", font="tarty7"))
 
-    rag: Rag = Rag(path)
     if command == "index":
-        index_files(rag)
+        index_files(path)
     else:
         click.echo("Starting the REPL...")
-        start_repl(OpenAILlm(rag.get_vector_store()))
+        start_repl(OpenAILlm(Rag.get_vector_store()))
     # Is this what you call self promotion? 😂
     click.secho(
         "\nCrafted with ❤️ by ©️ clovisphere (https://github.com/clovisphere)",
@@ -37,21 +36,21 @@ def console(path: str, command: str) -> None:
     )
 
 
-def index_files(rag: Rag) -> None:
+def index_files(path: str) -> None:
     click.secho("Indexing the documents...", fg="blue")
     # TODO: Add progress bar here to show the progress of the indexing
-    rag.etl()
+    _ = Rag(path).etl()
     click.secho("Indexing complete! 🎉", fg="green")
 
 
-def start_repl(openai: OpenAILlm) -> None:
+def start_repl(llm: OpenAILlm) -> None:
     click.secho(
         "\nI'm Lucy 🐶, a helpful AI assistant. You can ask me anything.", fg="blue"
     )
     click.secho("Type 'exit', 'quit', or 'q' to leave the REPL.\n", fg="red")
 
     while True and ((prompt := input("You: ")) not in ["exit", "quit", "q"]):
-        ai_answer = openai.ask_question(prompt)
+        ai_answer = llm.ask_question(prompt)
         click.secho(f"> {ai_answer.strip()}", fg="bright_cyan")
     # Leaving us already? 😪
     click.secho(

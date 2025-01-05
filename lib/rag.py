@@ -10,23 +10,22 @@ from langchain_openai import OpenAIEmbeddings
 class Rag:
     def __init__(self, path: str) -> None:
         self.directory_path = path  # path to the directory containing the text files
-        self.store_path = os.getenv("VECTOR_STORE_PATH") or "./.store"
-
-    @property
-    def embedding(self) -> OpenAIEmbeddings:
-        return OpenAIEmbeddings(
-            model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
-        )
 
     def etl(self) -> None:
         FAISS.from_documents(
-            documents=self._injest_pdf_documents(), embedding=self.embedding
-        ).save_local(self.store_path)
+            documents=self._injest_pdf_documents(),
+            embedding=OpenAIEmbeddings(
+                model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
+            ),
+        ).save_local("./.vector_store")
 
-    def get_vector_store(self) -> FAISS:
+    @staticmethod
+    def get_vector_store() -> FAISS:
         return FAISS.load_local(
-            folder_path=self.store_path,
-            embeddings=self.embedding,
+            folder_path="./.vector_store",
+            embeddings=OpenAIEmbeddings(
+                model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
+            ),
             allow_dangerous_deserialization=True,
         )
 

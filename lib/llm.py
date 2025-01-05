@@ -1,6 +1,7 @@
 import os
 import re
 from abc import ABC, abstractmethod
+from collections import defaultdict
 from typing import Any
 
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
@@ -17,7 +18,7 @@ from langchain_openai import OpenAI
 
 class Llm(ABC):
     @abstractmethod
-    def ask_question(self, question: str) -> str:
+    def ask_question(self, question: str, session_id: str) -> str:
         pass
 
 
@@ -25,17 +26,24 @@ class OpenAILlm(Llm):
     def __init__(self, store: FAISS) -> None:
         self.store = store
         self.openai = OpenAI(model=os.getenv("OPENAI_CHAT_MODEL") or "gpt-4o-mini")
-        self.chat_history: list[str] = []  # The chat history is a list of messages
+        self.chat_history: defaultdict[str, list[str]] = defaultdict(
+            list
+        )  # The chat history is a list of messages
 
-    def ask_question(self, question: str) -> str:
+    def ask_question(self, question: str, session_id: str = "not-okay") -> str:
+        # If the given session_id doesn't exist, create it:-)
+        if not self.chat_history.get(session_id):
+            self.chat_history.setdefault(session_id, [])
         # Create a retrieval chain
         chain = create_retrieval_chain(
             self.retriever_with_history, self.question_answer_chain
         )
         # Invoke the chain with the user question
-        response = chain.invoke({"input": question, "chat_history": self.chat_history})
+        response = chain.invoke(
+            {"input": question, "chat_history": self.chat_history.get(session_id)}
+        )
         # Add the question and answer to the chat history
-        self.chat_history.extend(
+        self.chat_history[session_id].extend(
             [
                 HumanMessage(content=question),  # type: ignore
                 response["answer"],
