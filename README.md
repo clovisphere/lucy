@@ -9,7 +9,7 @@ Lucy primarily works through a CLI but can also integrate with platforms like Te
 
 
 ## TODO
-- [ ] Telegram integration
+- [x] Telegram integration
 - [ ] Caching (we need to cache chat history)
 - [ ] Unit Tests (super **IMPORTANT**)
 - [ ] Logging (mostly for debugging purposes)
