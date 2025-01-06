@@ -34,7 +34,7 @@ Nice to have 😊
 
 ## Usage
 
-We need to set up the environment variables, so make a copy of [.env.local](./.env.local)
+We need to set up the environment variables, so make a copy of [.env.example](./.env.example)
 and rename it to `.env`. Fill in the necessary values.
 
 ### CLI
