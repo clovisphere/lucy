@@ -60,7 +60,7 @@ $ uv run cli.py --path='./docs' --command='index'  # index all documents found i
 $ uv run cli.py --command='repl'                   # start repl (query your document with the help of Lucy 🐶)
 ```
 
-### Web
+### (Bot) Server
 
 #### Development 👷🏽
 
