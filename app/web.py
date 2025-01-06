@@ -51,7 +51,7 @@ async def upload():
 @app.post("/webhook", status_code=status.HTTP_200_OK)
 async def process_update(request: Request):
     req = await request.json()
-    log.debug("Received a from Telegram via webhook 😉...", req=req)
+    log.debug("Received a request from Telegram via webhook 😉...", req=req)
     update = Update.de_json(req, telegram.bot)
     await telegram.process_update(update=update)
     return {"message": "telegram request well received 🤭"}

@@ -11,7 +11,7 @@ cli:
 
 server:
 	@echo "[🤖 SERVER] Starting $(SERVICE) on port $(PORT)..."
-	uv run fastapi dev lucy/web.py
+	uv run fastapi dev app/web.py
 
 clean:
 	@echo "Deleting all __pycache_/..."

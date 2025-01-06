@@ -1,4 +1,3 @@
-import logging
 from contextlib import contextmanager
 from typing import Any
 
@@ -12,10 +11,6 @@ from app.helpers.logger import log
 from app.helpers.rag import Rag
 
 load_dotenv()  # load the environment variables
-
-# Little hack 😊 to suppress 'faiss.loader' and 'httpx' INFO logs
-logging.getLogger("faiss.loader").setLevel(logging.WARNING)
-logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 @contextmanager

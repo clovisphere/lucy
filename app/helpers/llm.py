@@ -95,11 +95,15 @@ class OpenAILlm(Llm):
     ) -> str:
         """Removes everything before and including the first occurrence of the prefix."""
         self.logger.debug(
-            "Unsanitized response 😒", response=response, session_id=session_id
+            "Unsanitized llm's response 😒",
+            response=response.strip(),
+            session_id=session_id,
         )
         for prefix in prefixes:
             response = re.sub(rf".*?{re.escape(prefix)}", "", response, flags=re.DOTALL)
         self.logger.info(
-            "Sanitized llm's response 🥳", response=response, session_id=session_id
+            "Sanitized llm's response 🥳",
+            response=response.strip(),
+            session_id=session_id,
         )
         return response.strip()
