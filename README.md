@@ -20,7 +20,7 @@ Lucy primarily works through a CLI but can also integrate with platforms like Te
 Nice to have 😊
 
 - [ ] Telemetry/Observability ([prometheus](https://prometheus.io/), anyone?)
-- [ ] (a possible) web app (we'll see about this one 😉)
+- [ ] (a possible) website/web app (we'll see about this one 😉)
 - [ ] WhatsApp business integration (why not?)
 - [ ] Conquer the world 🌍 and sell it for a couple of million dollars 💰 (just kidding 😂)
 
@@ -60,7 +60,12 @@ $ uv run cli.py --path='./docs' --command='index'  # index all documents found i
 $ uv run cli.py --command='repl'                   # start repl (query your document with the help of Lucy 🐶)
 ```
 
+**Note**: You may also start the `repl` with `make`.
+
 ### (Bot) Server
+
+We will assume that you have already created a telegram bot, if you haven't,
+please create one with the help of [@botfather](https://t.me/botfather).
 
 #### Development 👷🏽
 
@@ -82,6 +87,8 @@ Use this URL to configure your Telegram bot's webhook.
 ```console
 $ uv run fastapi dev lucy/web.py                  # by default, fastapi serves the application on port :8000
 ```
+
+**Note**: You make also start the server with `make server`.
 
 
 ## Author
