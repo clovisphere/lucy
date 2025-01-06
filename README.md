@@ -8,7 +8,8 @@ Lucy primarily works through a CLI but can also integrate with platforms like Te
 > **Note**: This project is in its early stages, so expect continuous updates and improvements. 😅
 
 
-## TODO
+## TODO 📝
+
 - [x] Telegram integration
 - [ ] Caching (we need to cache chat history)
 - [ ] Unit Tests (super **IMPORTANT**)
@@ -24,7 +25,7 @@ Nice to have 😊
 - [ ] WhatsApp business integration (why not?)
 - [ ] Conquer the world 🌍 and sell it for a couple of million dollars 💰 (just kidding 😂)
 
-## Requirements
+## Requirements 🗂️
 
 - [Python 3.13](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/)
@@ -32,7 +33,7 @@ Nice to have 😊
 - [Telegram Bot Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
 - Patience and a lot of coffee ☕️... (that's optional, though 😅)
 
-## Usage
+## Usage 📋
 
 We need to set up the environment variables, so make a copy of [.env.example](./.env.example)
 and rename it to `.env`. Fill in the necessary values.
@@ -67,6 +68,16 @@ $ uv run cli.py --command='repl'                   # start repl (query your docu
 We will assume that you have already created a telegram bot, if you haven't,
 please create one with the help of [@botfather](https://t.me/botfather).
 
+As a proof-of-concept, Lucy has indexed [Glovo](https://www.wikiwand.com/en/articles/Glovo)'s publicly available
+[Yellow Book (2022)](https://jobs.glovoapp.com/wp-content/uploads/2022/01/glovos-yellow-book-compressed-1.pdf) using
+[retrieval-augmented generation (RAG)](https://www.wikiwand.com/en/articles/Retrieval-augmented_generation)
+to deliver smart, real-time integration.
+
+> Lucy in Action (as a Telegram Bot)
+
+| ![Telegram conversation 1](./images/telegram-1.jpg) | ![Telegram conversation 2](./images/telegram-2.jpg) |
+|-----------------------------------------------------|-----------------------------------------------------|
+
 #### Development 👷🏽
 
 We can use [ngrok](https://ngrok.com/) to interface with Telegram while running the application locally.
@@ -91,15 +102,22 @@ $ uv run fastapi dev lucy/web.py                  # by default, fastapi serves t
 **Note**: You make also start the server with `make server`.
 
 
-## Author
+## License 📄
+
+This project is open-source and licensed under the [MIT License](./LICENSE)
+
+## Contributions 🏗️
+
+Feel free to fork this project and/or submit pull requests. Contributions are welcome
+
+## Author 🤓
 
 Clovis Mugaruka :-)
 
 - [BlueSky](https://bsky.app/profile/clovisphere.github.io)
 - [GitHub](https://github.com/clovisphere)
 
-
-## Acknowledgements
+## Acknowledgements 🎉
 
 The work is inspired by [ada](https://github.com/MercuryTechnologies/ada)
 created by the talented team at [Mercury](https://mercury.com/). If anyone deserves credit,
