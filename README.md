@@ -12,7 +12,7 @@ Lucy primarily works through a CLI but can also integrate with platforms like Te
 - [x] Telegram integration
 - [ ] Caching (we need to cache chat history)
 - [ ] Unit Tests (super **IMPORTANT**)
-- [ ] Logging (mostly for debugging purposes)
+- [x] Logging (mostly for debugging purposes)
 - [ ] CI/CD (GitHub Actions, maybe?)
 - [ ] Dockerize the app
 - [ ] Deployment (Digital Ocean, AWS, GCP, etc.)

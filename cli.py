@@ -1,13 +1,24 @@
+import logging
+from contextlib import contextmanager
+from typing import Any
+
 import click
 from art import tprint  # type: ignore
 from dotenv import load_dotenv
+from structlog.testing import capture_logs
 
 from app.helpers.llm import OpenAILlm
+from app.helpers.logger import log
 from app.helpers.rag import Rag
 
 load_dotenv()  # load the environment variables
 
+# Little hack 😊 to suppress 'faiss.loader' and 'httpx' INFO logs
+logging.getLogger("faiss.loader").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
+
+@contextmanager
 @click.command()
 @click.option(
     "--path",
@@ -22,24 +33,26 @@ load_dotenv()  # load the environment variables
     "\nrepl:  Ask the AI assistant question via a REPL.",
 )
 def console(path: str, command: str) -> None:
-    click.echo(tprint("Lucy", font="tarty7"))
+    # When running in CLI mode,
+    # no need to show logs
+    with capture_logs():
+        click.echo(tprint("Lucy", font="tarty7"))
+        if command == "index":
+            index_files(path, log)
+        else:
+            click.echo("Starting the REPL...")
+            start_repl(OpenAILlm(Rag.get_vector_store(), log))
+        # Is this what you call self promotion? 😂
+        click.secho(
+            "\nCrafted with ❤️ by ©️ clovisphere (https://github.com/clovisphere)",
+            fg="bright_black",
+        )
 
-    if command == "index":
-        index_files(path)
-    else:
-        click.echo("Starting the REPL...")
-        start_repl(OpenAILlm(Rag.get_vector_store()))
-    # Is this what you call self promotion? 😂
-    click.secho(
-        "\nCrafted with ❤️ by ©️ clovisphere (https://github.com/clovisphere)",
-        fg="bright_black",
-    )
 
-
-def index_files(path: str) -> None:
-    click.secho("Indexing the documents...", fg="blue")
+def index_files(path: str, log: Any) -> None:
+    click.secho("Indexing...", fg="blue")
     # TODO: Add progress bar here to show the progress of the indexing
-    _ = Rag(path).etl()
+    _ = Rag(path, log).etl()
     click.secho("Indexing complete! 🎉", fg="green")
 
 

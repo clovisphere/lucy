@@ -3,6 +3,7 @@ from telegram.ext import ContextTypes
 
 from app.config import settings
 from app.helpers.llm import OpenAILlm
+from app.helpers.logger import log
 from app.helpers.rag import Rag
 
 
@@ -14,7 +15,7 @@ async def ask(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
     # fmt: on
         ai_answer = "Sorry 😞, I do not understand.."  # default response :-)
         if message and message != "None":
-            llm = OpenAILlm(Rag.get_vector_store())  # can we do better? 😮‍💨
+            llm = OpenAILlm(Rag.get_vector_store(), log)  # can we do better? 😮‍💨
             ai_answer = llm.ask_question(message, session_id=f"telegram-{chat_id}")
         await reply(ai_answer)
 

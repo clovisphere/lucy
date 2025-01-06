@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
@@ -8,16 +9,22 @@ from langchain_openai import OpenAIEmbeddings
 
 
 class Rag:
-    def __init__(self, path: str) -> None:
+    def __init__(self, path: str, logger: Any) -> None:
         self.directory_path = path  # path to the directory containing the text files
+        self.logger = logger
 
     def etl(self) -> None:
-        FAISS.from_documents(
+        self.logger.debug("ETL 😊")
+        vector_store = FAISS.from_documents(
             documents=self._injest_pdf_documents(),
             embedding=OpenAIEmbeddings(
                 model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
             ),
-        ).save_local("./.vector_store")
+        )
+        self.logger.debug(
+            "Saving indexed files to vector store", vector_store="./.vector_store"
+        )
+        vector_store.save_local("./.vector_store")
 
     @staticmethod
     def get_vector_store() -> FAISS:
@@ -32,6 +39,7 @@ class Rag:
     def _injest_pdf_documents(
         self, chunk_size: int = 1000, chunk_overlap: int = 0
     ) -> list[Document]:
+        self.logger.debug("Preparing files that need to be indexed 🤭")
         docs: list[Document] = []
         for file in os.listdir(self.directory_path):
             if not file.endswith(".pdf"):
@@ -41,6 +49,7 @@ class Rag:
         text_splitter = CharacterTextSplitter(
             chunk_size=chunk_size, chunk_overlap=chunk_overlap, separator="\n"
         )
+        self.logger.debug("Process completed 👏🏽", files_indexed=len(docs))
         return text_splitter.split_documents(docs)
 
     # The following code is an alternative implementation of
@@ -51,6 +60,7 @@ class Rag:
     def _injest_txt_documents(
         self, chunk_size: int = 128, chunk_overlap: int = 32, separator: str = "\n"
     ) -> list[Document]:
+        self.logger.debug("Preparing files that need to be indexed 🤭")
         docs: list[Document] = []  # list of document objects
         for file in os.listdir(self.directory_path):
             with open(f"{self.directory_path}/{file}") as f:
@@ -71,4 +81,5 @@ class Rag:
                         },
                     )
                 )
+        self.logger.debug("Process completed 👏🏽", files_indexed=len(docs))
         return docs
