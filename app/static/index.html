@@ -4,21 +4,54 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>File Uploader</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Sixtyfour:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
         <link rel="stylesheet" href="static/styles.css" />
     </head>
     <body>
+        <!-- Header Section with Gradient Background -->
+        <header class="header">
+            <h1>File Uploader 🐶</h1>
+        </header>
+        <!-- Main Container with Card Design -->
         <div class="container">
-            <h1>File Uploader</h1>
+            <!-- New Status Message -->
+            <p id="status-message" class="status-message"></p>
             <form id="upload-form">
-                <input
-                    type="file"
-                    id="file-input"
-                    multiple
-                    accept="application/pdf"
-                />
-                <button type="button" id="upload-button">Upload</button>
+                <div class="drag-drop-area" id="drag-drop-area">
+                    <p>Drag & Drop Your PDF Files Here</p>
+                    <br />
+                    <button
+                        type="button"
+                        id="upload-button"
+                        class="upload-button"
+                        disabled
+                    >
+                        Upload Files
+                    </button>
+                </div>
             </form>
+            <!-- Progress Bar Section -->
+            <div
+                id="progress-container"
+                class="progress-container"
+                style="display: none"
+            >
+                <label for="progress-bar">Progress</label><br />
+                <progress id="progress-bar" value="0" max="100"></progress>
+            </div>
+            <!-- Response Section -->
+            <div id="response" class="response"></div>
         </div>
+        <!-- Footer Section with clean social links -->
+        <footer class="footer">
+            <p>
+                &copy; 2025 Made with ❤️ by
+                <a href="https://github.com/clovisphere">clovisphere</a>
+            </p>
+        </footer>
         <script src="static/app.js"></script>
     </body>
 </html>
