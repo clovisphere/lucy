@@ -9,7 +9,7 @@ load_dotenv()  # load the environment variables
 class Settings(BaseSettings):
     PROJECT_NAME: str = os.getenv("PROJECT_NAME") or "Lucy"
 
-    UPLOAD_DIR = os.getenv("DOCUMENT_PATH") or "./docs"
+    UPLOAD_DIR: str = os.getenv("DOCUMENT_PATH") or "./docs"
 
     # Note: This template can stay the same for most use cases.
     SYSTEM_TEMPLATE: str = """
