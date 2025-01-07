@@ -2,7 +2,6 @@ import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
-from starlette.status import HTTP_200_OK
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
@@ -36,16 +35,6 @@ async def lifespan(_: FastAPI):
 
 # Initialize FastAPI app :-)
 app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
-
-
-@app.get("/", status_code=HTTP_200_OK)
-async def index():
-    return "hello, world!"
-
-
-@app.post("/upload")
-async def upload():
-    pass
 
 
 @app.post("/webhook", status_code=status.HTTP_200_OK)

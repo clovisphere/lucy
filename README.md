@@ -65,9 +65,6 @@ $ uv run cli.py --command='repl'                   # start repl (query your docu
 
 ### (Bot) Server
 
-We will assume that you have already created a telegram bot, if you haven't,
-please create one with the help of [@botfather](https://t.me/botfather).
-
 As a proof-of-concept, Lucy has indexed [Glovo](https://www.wikiwand.com/en/articles/Glovo)'s publicly available
 [Yellow Book (2022)](https://jobs.glovoapp.com/wp-content/uploads/2022/01/glovos-yellow-book-compressed-1.pdf) using
 [retrieval-augmented generation (RAG)](https://www.wikiwand.com/en/articles/Retrieval-augmented_generation)
@@ -77,6 +74,11 @@ to deliver smart, real-time integration.
 
 | ![Telegram conversation 1](./images/telegram-1.jpg) | ![Telegram conversation 2](./images/telegram-2.jpg) |
 |-----------------------------------------------------|-----------------------------------------------------|
+
+---
+
+We will assume that you have already created a telegram bot, if you haven't,
+please create one with the help of [@botfather](https://t.me/botfather).
 
 #### Development 👷🏽
 

@@ -21,15 +21,13 @@ class Rag:
                 model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
             ),
         )
-        self.logger.debug(
-            "Saving indexed files to vector store", vector_store="./.vector_store"
-        )
-        vector_store.save_local("./.vector_store")
+        self.logger.debug("Saving indexed files to vector store")
+        vector_store.save_local(os.getenv("VECTOR_STORE") or "./.vector_store")
 
     @staticmethod
     def get_vector_store() -> FAISS:
         return FAISS.load_local(
-            folder_path="./.vector_store",
+            folder_path=os.getenv("VECTOR_STORE") or "./.vector_store",
             embeddings=OpenAIEmbeddings(
                 model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
             ),
