@@ -15,6 +15,26 @@ const updateStatusMessage = (message, color = "black") => {
   statusMessage.style.color = color;
 };
 
+// Function to handle file selection and update UI
+const handleFileSelection = (files) => {
+  // Filter for PDF files
+  selectedFiles = Array.from(files).filter(
+    (file) => file.type === "application/pdf",
+  );
+
+  if (selectedFiles.length > 0) {
+    // Enable the upload button
+    uploadButton.disabled = false;
+    // Provide feedback to the user
+    updateStatusMessage(
+      `${selectedFiles.length} PDF file(s) ready to upload.`,
+      "green",
+    );
+  } else {
+    updateStatusMessage("Please upload only PDF files.", "red");
+  }
+};
+
 // Handle drag over event
 dragDropArea.addEventListener("dragover", (event) => {
   event.preventDefault();
@@ -30,23 +50,7 @@ dragDropArea.addEventListener("dragleave", () => {
 dragDropArea.addEventListener("drop", (event) => {
   event.preventDefault();
   dragDropArea.classList.remove("dragover");
-
-  // Filter for PDF files
-  selectedFiles = Array.from(event.dataTransfer.files).filter(
-    (file) => file.type === "application/pdf",
-  );
-
-  if (selectedFiles.length > 0) {
-    // Enable the upload button
-    uploadButton.disabled = false;
-    // Provide feedback to the user
-    updateStatusMessage(
-      `${selectedFiles.length} PDF file(s) ready to upload.`,
-      "green",
-    );
-  } else {
-    updateStatusMessage("Please upload only PDF files.", "red");
-  }
+  handleFileSelection(event.dataTransfer.files);
 });
 
 // Handle the upload button click
@@ -86,7 +90,6 @@ uploadButton.addEventListener("click", async () => {
       responseMessage.style.color = "#FA7F9E";
       updateStatusMessage("Failed to upload files.", "red");
     }
-    // Reset the UI
     resetUI();
   };
 

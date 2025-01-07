@@ -1,4 +1,4 @@
-![Ask Lucy](./images/Lucy.png)
+![Ask Lucy](./images/lucy.png)
 
 Lucy is an AI assistant designed to help you find answers by querying a pre-built index of documents, such as your company's knowledge base.
 She’s perfect for onboarding new employees, answering FAQs, or even planning a party!
@@ -21,7 +21,7 @@ Lucy primarily works through a CLI but can also integrate with platforms like Te
 Nice to have 😊
 
 - [ ] Telemetry/Observability ([prometheus](https://prometheus.io/), anyone?)
-- [ ] (a possible) website/web app (we'll see about this one 😉)
+- [x] (a possible) website/web app to upload files (we'll see about this one 😉)
 - [ ] WhatsApp business integration (why not?)
 - [ ] Conquer the world 🌍 and sell it for a couple of million dollars 💰 (just kidding 😂)
 
@@ -79,6 +79,12 @@ to deliver smart, real-time integration.
 
 We will assume that you have already created a telegram bot, if you haven't,
 please create one with the help of [@botfather](https://t.me/botfather).
+
+> Lucy's (basic) file uploader
+
+![Lucy's File Uploader Interface](./images/lucy-file-uploader.png)
+
+---
 
 #### Development 👷🏽
 

@@ -1,156 +1,173 @@
 /* General Styling */
 body {
     font-family: "Sixtyfour", sans-serif;
-    background-color: #fafafa;
-    color: #637150;
+    background-color: #f9fafc; /* Softer white background */
+    color: #4d4d4d;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     min-height: 100vh;
 }
 
 /* Header */
-header {
+header.header {
+    background: linear-gradient(135deg, #63c1d8, #6e93b0);
+    color: #ffffff;
     text-align: center;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
     width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    font-size: 2rem;
+header.header h1 {
+    font-size: 2.5rem;
     font-weight: 600;
-    color: #2a2a2a;
-    margin: 0 0 10px;
-}
-
-header p {
-    font-size: 1rem;
-    color: #737373;
     margin: 0;
 }
 
-/* Main Content (Card Design) */
+/* Main Container */
 .container {
     background: #ffffff;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
     padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-    margin: 1rem auto;
+    max-width: 700px;
+    width: 90%;
+    margin: auto;
     text-align: center;
 }
 
-/* File Input */
-.input-container input[type="file"] {
-    padding: 0.75rem;
-    width: 100%;
+/* Status Message */
+.status-message {
     font-size: 1rem;
+    font-weight: 500;
     color: #4a4a4a;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    transition: 0.3s;
-    box-shadow: none;
-}
-
-.input-container input[type="file"]:hover,
-.input-container input[type="file"]:focus {
-    border: 1px solid #bbb;
-    outline: none;
+    margin-bottom: 1rem;
 }
 
 /* Drag and Drop Area */
 .drag-drop-area {
-    border: 2px dashed #e0e0e0;
-    border-radius: 10px;
+    border: 2px dashed #a6b4c8;
+    border-radius: 15px;
     padding: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
-    background-color: #fafafa;
+    background-color: #f9fafc;
     transition: 0.3s;
 }
 
 .drag-drop-area p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #4a4a4a;
 }
 
 .drag-drop-area .or-text {
     font-size: 0.9rem;
-    color: #737373;
+    color: #7f7f7f;
     margin: 1rem 0;
 }
 
 .drag-drop-area.dragover {
-    border-color: #9e9e9e;
-    background-color: #f5f5f5;
+    border-color: #63c1d8;
+    background-color: #eef4fc;
 }
 
-/* Ensure upload button matches the drag area styling */
+/* Upload Button */
 .upload-button {
-    background-color: #e0e0e0;
+    background-color: #d3d3d3;
     color: #ffffff;
-    padding: 10px 20px;
+    padding: 12px 30px;
     font-size: 1rem;
     border: none;
     border-radius: 30px;
     cursor: not-allowed;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     opacity: 0.7;
 }
 
 .upload-button:enabled {
-    background-color: #91c3cf;
+    background-color: #63c1d8;
     cursor: pointer;
     opacity: 1;
 }
 
 .upload-button:enabled:hover {
-    background-color: #6e6e6e;
+    background-color: #4e9db3;
 }
 
 /* Progress Bar */
-#progress-container {
+.progress-container {
     margin-top: 1rem;
-    text-align: center;
+    display: none; /* Hidden by default */
+}
+
+.progress-container label {
+    font-size: 1rem;
+    color: #4d4d4d;
 }
 
 progress {
     width: 100%;
     height: 20px;
     border-radius: 10px;
-    overflow: hidden;
     -webkit-appearance: none;
     appearance: none;
+    overflow: hidden;
 }
 
 progress::-webkit-progress-bar {
-    background-color: #e0e0e0;
+    background-color: #eaecef;
 }
 
 progress::-webkit-progress-value {
-    background-color: #9e9e9e;
+    background-color: #63c1d8;
 }
 
-/* Response */
+/* Response Section */
 .response {
     margin-top: 1rem;
-    color: #b1c6fa;
+    color: #5c8eab;
     font-size: 1.2rem;
+    font-weight: 500;
 }
 
 /* Footer */
-footer {
+footer.footer {
     text-align: center;
     padding: 1rem;
     font-size: 0.9rem;
     color: #737373;
-    margin-top: 1rem;
-    border-top: 1px solid #eaeaea;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    background-color: #ffffff;
+}
+
+footer.footer a {
+    color: #63c1d8;
+    text-decoration: none;
+}
+
+footer.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header.header h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    .upload-button {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+    }
 }
