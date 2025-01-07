@@ -1,10 +1,32 @@
+import os
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
 from telegram import Update
-from telegram.ext import ContextTypes
+from telegram.ext import ApplicationBuilder, ContextTypes
 
 from app.config import settings
 from app.helpers.llm import OpenAILlm
 from app.helpers.logger import log
 from app.helpers.rag import Rag
+
+# Initialize Telegram 🤖
+TELEGRAM = (
+    ApplicationBuilder()
+    .token(os.getenv("TELEGRAM_TOKEN", ""))
+    .read_timeout(7)
+    .get_updates_read_timeout(42)
+    .build()
+)
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    await TELEGRAM.bot.setWebhook(os.getenv("WEBHOOK_ENDPOINT", ""))
+    async with TELEGRAM:
+        await TELEGRAM.start()
+        yield
+        await TELEGRAM.stop()
 
 
 async def ask(update: Update, _: ContextTypes.DEFAULT_TYPE) -> None:
