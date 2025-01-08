@@ -129,4 +129,4 @@ Clovis Mugaruka :-)
 
 The work is inspired by [ada](https://github.com/MercuryTechnologies/ada)
 created by the talented team at [Mercury](https://mercury.com/). If anyone deserves credit,
-it's them—props to Mercury! (And oh, they made me (re)learn [Haskell](https://people.willamette.edu/~fruehr/haskell/evolution.html)) 👏🏽
+it's them—props to Mercury! (And oh, they made me learn basic [Haskell](https://people.willamette.edu/~fruehr/haskell/evolution.html)) 👏🏽
