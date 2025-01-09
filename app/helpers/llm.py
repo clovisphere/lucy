@@ -61,7 +61,7 @@ class OpenAILlm(Llm):
         )
         # Sanitize the response
         return self._sanitize_response(
-            response["answer"], ["Human:", "Lucy:", "System:"], session_id
+            response["answer"], ["Bot:", "Human:", "Lucy:", "System:"], session_id
         )
 
     @property
