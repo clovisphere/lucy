@@ -16,7 +16,7 @@ class Rag:
     def etl(self) -> None:
         self.logger.debug("ETL 😊")
         vector_store = FAISS.from_documents(
-            documents=self._injest_pdf_documents(),
+            documents=self._ingest_pdf_documents(),
             embedding=OpenAIEmbeddings(
                 model=os.getenv("OPENAI_EMBEDDING_MODEL") or "text-embedding-3-large"
             ),
@@ -34,7 +34,7 @@ class Rag:
             allow_dangerous_deserialization=True,
         )
 
-    def _injest_pdf_documents(
+    def _ingest_pdf_documents(
         self, chunk_size: int = 1000, chunk_overlap: int = 0
     ) -> list[Document]:
         self.logger.debug("Preparing files that need to be indexed 🤭")
@@ -51,11 +51,11 @@ class Rag:
         return text_splitter.split_documents(docs)
 
     # The following code is an alternative implementation of
-    # the _injest_*_documents method.
+    # the _ingest_*_documents method.
     # It uses the text_splitter to split the .txt files into chunks.
     #
     # **NOTE:** IT IS NOT USED IN THE CURRENT IMPLEMENTATION OF THE RAG CLASS 😞
-    def _injest_txt_documents(
+    def _ingest_txt_documents(
         self, chunk_size: int = 128, chunk_overlap: int = 32, separator: str = "\n"
     ) -> list[Document]:
         self.logger.debug("Preparing files that need to be indexed 🤭")

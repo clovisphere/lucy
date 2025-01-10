@@ -1,7 +1,7 @@
 [project]
 name = "lucy"
 version = "0.1.0"
-description = "personalised ai-powered assistant"
+description = "personalized ai-powered assistant"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
