@@ -22,7 +22,6 @@ Nice to have 😊
 
 - [ ] Telemetry/Observability ([prometheus](https://prometheus.io/), anyone?)
 - [x] (a possible) website/web app to upload files (we'll see about this one 😉)
-- [ ] WhatsApp business integration (why not?)
 - [ ] Conquer the world 🌍 and sell it for a couple of million dollars 💰 (just kidding 😂)
 
 ## Requirements 🗂️
